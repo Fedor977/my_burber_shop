@@ -1,0 +1,36 @@
+<!-- my_burger_shop/app/templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Burger Menu</title>
+    <script>
+        function addToCart(burgerId, quantity) {  // Функция для добавления товара в корзину
+            fetch('/add-to-cart', {  // Отправка запроса на сервер
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams({
+                    'burger_id': burgerId,  // Идентификатор бургера
+                    'quantity': quantity,  // Количество
+                }),
+            }).then(response => response.json()).then(data => {  // Обработка ответа сервера
+                alert(data.message);  // Показ сообщения о результате
+            });
+        }
+    </script>
+</head>
+<body>
+    <h1>Burger Menu</h1>  <!-- Заголовок страницы -->
+    <ul>
+        {% for burger in burgers %}
+            <li>{{ burger.name }} - {{ burger.price }} USD</li>  <!-- Название и цена бургера -->
+            <p>{{ burger.description }}</p>  <!-- Описание бургера -->
+            <button onclick="addToCart({{ burger.id }}, 1)">Add to Cart</button>  <!-- Кнопка добавления в корзину -->
+        {% endfor %}
+    </ul>
+    <a href="/cart">View Cart</a>  <!-- Ссылка для просмотра корзины -->
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!-- my_burger_shop/app/templates/cart.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+</head>
+<body>
+    <h1>Your Cart</h1>  <!-- Заголовок страницы корзины -->
+    <ul>
+        {% for item in cart_items %}
+            <li>{{ item.burger.name }} - {{ item.burger.price }} USD * {{ item.quantity }} = {{ item.burger.price * item.quantity }} USD</li>  <!-- Элемент корзины с ценой и количеством -->
+        {% endfor %}
+    </ul>
+    <p>Total: {{ total_sum }} USD</p>  <!-- Общая сумма заказа -->
+    <a href="/">Continue Shopping</a>  <!-- Ссылка для продолжения покупок -->
+</body>
+</html>
